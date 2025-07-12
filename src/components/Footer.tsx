@@ -20,21 +20,29 @@ const Footer = () => {
               Empowering individuals and organizations through innovative education, mentorship, and skill development programs.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-[#FFD700] transition-colors">
+              <a href="https://facebook.com/oponmeta" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-gray-300 hover:text-[#FFD700] transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-[#FFD700] transition-colors">
+              <a href="https://twitter.com/oponmeta" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-gray-300 hover:text-[#FFD700] transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-[#FFD700] transition-colors">
+              <a href="https://instagram.com/oponmeta" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-gray-300 hover:text-[#FFD700] transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-[#FFD700] transition-colors">
+              <a href="https://linkedin.com/company/oponmeta" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-gray-300 hover:text-[#FFD700] transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-[#FFD700] transition-colors">
+              <a href="https://youtube.com/@oponmeta" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-gray-300 hover:text-[#FFD700] transition-colors">
                 <Youtube className="h-5 w-5" />
               </a>
+              <button
+                onClick={() => {navigator.clipboard.writeText(window.location.origin);}}
+                className="ml-2 px-2 py-1 bg-[#FFD700] text-[#0a174e] rounded hover:bg-yellow-400 text-xs font-semibold transition-colors"
+                aria-label="Share OponMeta"
+                title="Copy site link to clipboard"
+              >
+                Share OponMeta
+              </button>
             </div>
           </div>
 

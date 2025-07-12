@@ -101,15 +101,16 @@ const Header = () => {
               <img
                 src="/logo.png"
                 alt="OponMeta Logo"
-                className="h-12 w-12 mr-3"
+                className="h-12 w-12 mr-3 animate-pulse hover:animate-spin transition-all duration-300 hover:scale-110 hover:drop-shadow-lg hover:drop-shadow-yellow-400/50"
                 style={{ minWidth: '3rem' }}
               />
               <span
-                className="text-3xl font-extrabold"
+                className="text-3xl font-extrabold group-hover:scale-105 transition-transform duration-300"
                 style={{
                   color: '#FFC72C', // Gold
                   letterSpacing: '0.03em',
                   fontFamily: 'inherit',
+                  textShadow: '0 0 10px rgba(255, 199, 44, 0.3)',
                 }}
               >
                 OponMeta
@@ -256,7 +257,7 @@ const Header = () => {
                   <Link to="/vendor-dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Vendor Dashboard</Link>
                   <hr className="my-1" />
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Your Profile</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Settings</a>
+                  <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Settings</Link>
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Billing</a>
                   <hr className="my-1" />
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Sign out</a>

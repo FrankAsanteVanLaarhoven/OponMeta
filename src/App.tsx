@@ -21,6 +21,12 @@ import Resources from './components/Resources';
 import Community from './components/Community';
 import StudentDashboard from './components/StudentDashboard';
 import VendorDashboard from './components/VendorDashboard';
+import Certificate from './components/Certificate';
+import Settings from './components/Settings';
+import BrandBanner from './components/BrandBanner';
+import Press from './components/Press';
+import Events from './components/Events';
+import LearningTiers from './components/LearningTiers';
 
 const Placeholder = ({ title }: { title: string }) => (
   <div className="max-w-4xl mx-auto py-20 px-4 text-center">
@@ -31,9 +37,24 @@ const Placeholder = ({ title }: { title: string }) => (
 
 const HomePage = () => (
   <>
+    <BrandBanner />
     <HeroSection />
     <WhatWeOffer />
     <FeaturedCourses />
+    <div className="flex flex-col items-center my-8 space-y-4">
+      <a
+        href="/programme"
+        className="inline-block px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-lg font-bold rounded-lg shadow-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200"
+      >
+        Browse All Courses
+      </a>
+      <a
+        href="/certificate/sample"
+        className="inline-block px-6 py-2 border-2 border-yellow-400 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-50 transition-all duration-200"
+      >
+        Preview Sample Certificate
+      </a>
+    </div>
     <Testimonials />
     <Pricing />
     {/* Navigation Tabs */}
@@ -72,6 +93,11 @@ function App() {
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/vendor-dashboard" element={<VendorDashboard />} />
             <Route path="/login" element={<Placeholder title="Log In / Sign Up" />} />
+            <Route path="/certificate/sample" element={<Certificate />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/press" element={<Press />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/learning-tiers" element={<LearningTiers />} />
           </Routes>
         </main>
         <Footer />
