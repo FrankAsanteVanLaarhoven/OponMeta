@@ -1,4 +1,29 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const headingVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { type: 'tween', duration: 0.7 } },
+};
+
+const cardVariants = {
+  offscreen: { opacity: 0, y: 60 },
+  onscreen: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.8 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const tabVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.6 } },
+};
 
 const Press = () => {
   const [activeTab, setActiveTab] = useState('press-releases');
@@ -71,17 +96,31 @@ const Press = () => {
     <div className="bg-[#f6f9fc] min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-[#0a174e] mb-4">Press & Media</h1>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+        <motion.div
+          className="text-center mb-12"
+          variants={headingVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.7 }}
+        >
+          <motion.h1 className="text-4xl font-bold text-[#0a174e] mb-4" variants={headingVariants}>
+            Press & Media
+          </motion.h1>
+          <motion.p className="text-lg text-gray-700 max-w-3xl mx-auto" variants={headingVariants}>
             Stay updated with the latest news, press releases, and media coverage about OponMeta's mission to revolutionize education.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <motion.div
+          className="flex flex-wrap justify-center gap-2 mb-8"
+          variants={tabVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.7 }}
+        >
           {tabs.map(tab => (
-            <button
+            <motion.button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
@@ -89,41 +128,75 @@ const Press = () => {
                   ? 'bg-[#0a174e] text-white shadow-lg' 
                   : 'bg-white text-[#0a174e] hover:bg-gray-50'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {tab.label}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Tab Content */}
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <motion.div
+          className="bg-white rounded-lg shadow-lg p-8"
+          variants={cardVariants}
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {activeTab === 'press-releases' && (
             <div className="space-y-8">
-              <h2 className="text-2xl font-bold text-[#0a174e] mb-6">Latest Press Releases</h2>
-              {pressReleases.map(release => (
-                <div key={release.id} className={`border-l-4 ${release.featured ? 'border-[#FFD700]' : 'border-[#0a174e]'} pl-6 py-4`}>
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold text-[#0a174e]">{release.title}</h3>
-                    <span className="text-sm text-gray-500">{new Date(release.date).toLocaleDateString()}</span>
-                  </div>
-                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full mb-3">
-                    {release.category}
-                  </span>
-                  <p className="text-gray-700 mb-4">{release.summary}</p>
-                  <button className="text-[#0a174e] font-semibold hover:underline">
-                    Read Full Release →
-                  </button>
-                </div>
-              ))}
+              <motion.h2 className="text-2xl font-bold text-[#0a174e] mb-6" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }}>
+                Latest Press Releases
+              </motion.h2>
+              <motion.div
+                className="space-y-8"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                {pressReleases.map(release => (
+                  <motion.div
+                    key={release.id}
+                    className={`border-l-4 ${release.featured ? 'border-[#FFD700]' : 'border-[#0a174e]'} pl-6 py-4`}
+                    variants={cardVariants}
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-semibold text-[#0a174e]">{release.title}</h3>
+                      <span className="text-sm text-gray-500">{new Date(release.date).toLocaleDateString()}</span>
+                    </div>
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full mb-3">
+                      {release.category}
+                    </span>
+                    <p className="text-gray-700 mb-4">{release.summary}</p>
+                    <button className="text-[#0a174e] font-semibold hover:underline">
+                      Read Full Release →
+                    </button>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
           )}
 
           {activeTab === 'media-mentions' && (
             <div className="space-y-8">
-              <h2 className="text-2xl font-bold text-[#0a174e] mb-6">Media Coverage</h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <motion.h2 className="text-2xl font-bold text-[#0a174e] mb-6" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }}>
+                Media Coverage
+              </motion.h2>
+              <motion.div
+                className="grid md:grid-cols-2 gap-6"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.2 }}
+              >
                 {mediaMentions.map(mention => (
-                  <div key={mention.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                  <motion.div
+                    key={mention.id}
+                    className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                    variants={cardVariants}
+                  >
                     <div className="flex justify-between items-start mb-3">
                       <h3 className="font-semibold text-[#0a174e]">{mention.title}</h3>
                       <span className="text-sm text-gray-500">{new Date(mention.date).toLocaleDateString()}</span>
@@ -136,9 +209,9 @@ const Press = () => {
                     >
                       Read Article →
                     </a>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           )}
 
@@ -265,7 +338,7 @@ const Press = () => {
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

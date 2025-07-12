@@ -324,7 +324,13 @@ const CourseCatalog = () => {
   ];
 
   return (
-    <div className="flex">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a174e] to-[#1a2a6b] pb-12">
+      {/* Branded Hero/Header */}
+      <div className="flex flex-col items-center justify-center py-12 bg-gradient-to-r from-[#0a174e] to-[#1a2a6b] mb-8 shadow-lg">
+        <img src="/logo.png" alt="OponMeta Logo" className="h-20 w-20 mb-4 animate-pulse drop-shadow-lg" />
+        <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent drop-shadow-lg mb-2">All Courses</h1>
+        <p className="text-lg text-white font-medium max-w-2xl text-center">Browse OponMeta’s world-class courses and unlock your learning journey. Filter, sort, and discover programs designed for your success.</p>
+      </div>
       {/* Filter Sidebar */}
       <FilterSidebar isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} />
 

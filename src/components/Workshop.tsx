@@ -1,4 +1,29 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const headingVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { type: 'tween', duration: 0.7 } },
+};
+
+const cardVariants = {
+  offscreen: { opacity: 0, y: 60 },
+  onscreen: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.8 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const tabVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.6 } },
+};
 
 const Workshop = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
@@ -85,16 +110,32 @@ const Workshop = () => {
   return (
     <div className="bg-[#f6f9fc] min-h-screen py-12 px-4">
       {/* Hero Section */}
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold text-[#0a174e] mb-4">Hands-On Workshops for Real-World Skills</h1>
-        <p className="text-lg text-gray-700 mb-6">Join live, interactive sessions led by industry experts. Our workshops are designed to give you practical, actionable skills in a collaborative environment.</p>
-      </div>
+      <motion.div
+        className="max-w-3xl mx-auto text-center mb-12"
+        variants={headingVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
+        <motion.h1 className="text-4xl font-bold text-[#0a174e] mb-4" variants={headingVariants}>
+          Hands-On Workshops for Real-World Skills
+        </motion.h1>
+        <motion.p className="text-lg text-gray-700 mb-6" variants={headingVariants}>
+          Join live, interactive sessions led by industry experts. Our workshops are designed to give you practical, actionable skills in a collaborative environment.
+        </motion.p>
+      </motion.div>
 
       {/* Navigation Tabs */}
-      <div className="max-w-5xl mx-auto mb-8">
+      <motion.div
+        className="max-w-5xl mx-auto mb-8"
+        variants={tabVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
         <div className="flex flex-wrap justify-center gap-2">
           {tabs.map(tab => (
-            <button
+            <motion.button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
@@ -102,20 +143,30 @@ const Workshop = () => {
                   ? 'bg-[#0a174e] text-white shadow-lg' 
                   : 'bg-white text-[#0a174e] hover:bg-gray-50'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {tab.label}
-            </button>
+            </motion.button>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Tab Content */}
       <div className="max-w-5xl mx-auto">
         {activeTab === 'upcoming' && (
           <div className="space-y-8">
             {/* Filters */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-2xl font-bold text-[#0a174e] mb-4">Upcoming Workshops</h2>
+            <motion.div
+              className="bg-white rounded-lg shadow p-6"
+              variants={cardVariants}
+              initial="offscreen"
+              whileInView="onscreen"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.h2 className="text-2xl font-bold text-[#0a174e] mb-4" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }}>
+                Upcoming Workshops
+              </motion.h2>
               <div className="grid md:grid-cols-3 gap-4 mb-6">
                 <select className="border border-gray-300 rounded-md px-3 py-2">
                   {categories.map(category => (
@@ -135,12 +186,22 @@ const Workshop = () => {
                   <option>On Campus</option>
                 </select>
               </div>
-            </div>
+            </motion.div>
 
             {/* Workshop Cards */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <motion.div
+              className="grid md:grid-cols-2 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {filteredWorkshops.map(workshop => (
-                <div key={workshop.id} className="bg-white rounded-lg shadow p-6">
+                <motion.div
+                  key={workshop.id}
+                  className="bg-white rounded-lg shadow p-6"
+                  variants={cardVariants}
+                >
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <h4 className="font-semibold text-[#0a174e] text-lg">{workshop.title}</h4>
@@ -189,9 +250,9 @@ const Workshop = () => {
                       </button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
 

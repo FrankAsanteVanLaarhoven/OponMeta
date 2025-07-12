@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const courses = [
   {
@@ -117,16 +118,53 @@ const levelColors = {
   'Advanced': 'bg-red-100 text-red-700',
 };
 
+const cardVariants = {
+  offscreen: { opacity: 0, y: 60 },
+  onscreen: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.8 } },
+};
+
+const headingVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { type: 'tween', duration: 0.7 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
 const FeaturedCourses = () => (
   <>
     <section className="w-full bg-white py-12 px-4 border-b border-gray-100">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0a174e] mb-2">Featured Courses & Workshops</h2>
-        <div className="w-16 h-1 bg-indigo-400 mx-auto mb-8 rounded" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-[#0a174e] mb-2"
+          variants={headingVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.7 }}
+        >
+          Featured Courses & Workshops
+        </motion.h2>
+        <motion.div className="w-16 h-1 bg-indigo-400 mx-auto mb-8 rounded" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }} />
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {courses.map((course, idx) => (
-            <div key={idx} className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition flex flex-col items-start">
-              <h3 className="text-xl font-semibold text-[#0a174e] mb-2">{course.title}</h3>
+            <motion.div
+              key={idx}
+              className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition flex flex-col items-start"
+              variants={cardVariants}
+            >
+              <motion.h3 className="text-xl font-semibold text-[#0a174e] mb-2" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }}>{course.title}</motion.h3>
               <p className="text-gray-700 mb-4">{course.desc}</p>
               <div className="flex flex-wrap gap-2">
                 {course.tags.map((tag) => (
@@ -138,22 +176,37 @@ const FeaturedCourses = () => (
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
     
     {/* OponMeta Program Courses Preview Section */}
     <section className="w-full bg-[#f6f9fc] py-12 px-4 border-b border-gray-100">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0a174e] mb-2">OponMeta Program Courses</h2>
-        <div className="w-16 h-1 bg-[#FFD700] mx-auto mb-8 rounded" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-[#0a174e] mb-2"
+          variants={headingVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.7 }}
+        >
+          OponMeta Program Courses
+        </motion.h2>
+        <motion.div className="w-16 h-1 bg-[#FFD700] mx-auto mb-8 rounded" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }} />
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {programCourses.slice(0, 3).map((course) => (
-            <div 
-              key={course.id} 
+            <motion.div
+              key={course.id}
               className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group"
+              variants={cardVariants}
               onClick={() => window.location.href = `/course/${course.id}`}
             >
               <div className="relative">
@@ -162,15 +215,11 @@ const FeaturedCourses = () => (
                   {course.price}
                 </div>
                 <div className="absolute top-3 left-3">
-                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${levelColors[course.level]}`}>
-                    {course.level}
-                  </span>
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${levelColors[course.level]}`}>{course.level}</span>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#0a174e] mb-2 group-hover:text-[#FFD700] transition-colors">
-                  {course.title}
-                </h3>
+                <motion.h3 className="text-xl font-semibold text-[#0a174e] mb-2 group-hover:text-[#FFD700] transition-colors" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }}>{course.title}</motion.h3>
                 <p className="text-gray-600 mb-3 text-sm line-clamp-2">{course.desc}</p>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm text-gray-500">Instructor: {course.instructor}</span>
@@ -194,9 +243,9 @@ const FeaturedCourses = () => (
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         <Link 
           to="/programme" 
           className="inline-flex items-center px-8 py-3 bg-[#0a174e] text-white font-semibold rounded-lg hover:bg-[#1a2a6b] transition-colors duration-300 shadow-lg hover:shadow-xl"

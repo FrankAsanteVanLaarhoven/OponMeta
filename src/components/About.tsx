@@ -51,19 +51,28 @@ const team = [
 ];
 
 const About = () => (
-  <div className="bg-[#f6f9fc] min-h-screen pb-16">
+  <div className="bg-gradient-to-br from-[#0a174e] to-[#1a2a6b] min-h-screen pb-16">
     {/* Logo and tagline */}
     <div className="flex flex-col items-center pt-10 pb-4">
-      <img src="/oponmeta-logo .png" alt="OponMeta Logo" className="h-16 w-16 mb-2" />
-      <h1 className="text-3xl font-extrabold text-[#0a174e] tracking-wide mb-2">OponMeta</h1>
-      <p className="text-lg text-[#0a174e] font-semibold mb-2">Empowering Global Learning</p>
+      <img src="/logo.png" alt="OponMeta Logo" className="h-20 w-20 mb-4 animate-pulse drop-shadow-lg" />
+      <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent drop-shadow-lg mb-2">OponMeta</h1>
+      <p className="text-lg text-white font-semibold mb-2">Empowering Global Learning</p>
     </div>
 
     {/* About Us */}
     <div className="max-w-3xl mx-auto text-center mb-10">
-      <h2 className="text-2xl font-bold text-[#0a174e] mb-4">About Us</h2>
-      <p className="text-gray-700 mb-2">We are a global EdTech powerhouse pioneering the future of digital learning. We craft transformative experiences in professional development and technical education, equipping today's learners and tomorrow's leaders with cutting-edge skills and knowledge. From interactive learning modules to scalable learning platforms, we empower institutions and individuals to unlock their full potential—redefining what learning can achieve across borders and industries.</p>
-      <p className="text-gray-700 mb-2">Our mission is to democratize access to world-class education through innovative technology and personalized learning experiences. By fostering a culture of excellence and innovation, we support professionals in unlocking their full potential and shaping the future of global industries.</p>
+      <h2 className="text-2xl font-bold text-white mb-4">About Us</h2>
+      <p className="text-gray-200 mb-2">We are a global EdTech powerhouse pioneering the future of digital learning. We craft transformative experiences in professional development and technical education, equipping today's learners and tomorrow's leaders with cutting-edge skills and knowledge. From interactive learning modules to scalable learning platforms, we empower institutions and individuals to unlock their full potential—redefining what learning can achieve across borders and industries.</p>
+      <p className="text-gray-200 mb-2">Our mission is to democratize access to world-class education through innovative technology and personalized learning experiences. By fostering a culture of excellence and innovation, we support professionals in unlocking their full potential and shaping the future of global industries.</p>
+    </div>
+
+    {/* Approach Section */}
+    <div className="max-w-3xl mx-auto text-center mb-10">
+      <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent mb-4 drop-shadow">Our Approach</h2>
+      <p className="text-lg text-white font-medium">
+        OponMeta blends digital learning platforms, practical workshops, mentorship programmes, and industry collaborations to create an all-encompassing professional development ecosystem.<br className="hidden md:block" />
+        Designed for accessibility, adaptability, and impact, OponMeta ensures professionals remain competitive, forward-thinking, and equipped to lead in a rapidly evolving world.
+      </p>
     </div>
 
     {/* Vision & Mission Cards */}

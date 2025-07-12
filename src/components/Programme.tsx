@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Dashboard from './Dashboard';
 import CourseCatalog from './CourseCatalog';
 import OponMetaPrograms from './OponMetaPrograms';
@@ -49,33 +50,63 @@ const sampleCourses = [
   // ...add more for other categories as needed...
 ];
 
+const headingVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { type: 'tween', duration: 0.7 } },
+};
+
+const tabVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.6 } },
+};
+
 const Programme = () => {
   const [tab, setTab] = useState<'courses' | 'dashboard' | 'programs'>('courses');
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold text-[#0a174e] mb-6">OponMeta Programme</h1>
+      <motion.h1
+        className="text-3xl font-bold text-[#0a174e] mb-6"
+        variants={headingVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
+        OponMeta Programme
+      </motion.h1>
       {/* Tabs */}
-      <div className="mb-8 flex border-b border-gray-200">
-        <button
+      <motion.div
+        className="mb-8 flex border-b border-gray-200"
+        variants={tabVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
+        <motion.button
           className={`py-2 px-6 text-lg font-semibold focus:outline-none transition border-b-2 ${tab === 'courses' ? 'border-[#FFD700] text-[#0a174e]' : 'border-transparent text-gray-500 hover:text-[#0a174e]'}`}
           onClick={() => setTab('courses')}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           Browse Courses
-        </button>
-        <button
+        </motion.button>
+        <motion.button
           className={`py-2 px-6 text-lg font-semibold focus:outline-none transition border-b-2 ${tab === 'programs' ? 'border-[#FFD700] text-[#0a174e]' : 'border-transparent text-gray-500 hover:text-[#0a174e]'}`}
           onClick={() => setTab('programs')}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           OponMeta Programs
-        </button>
-        <button
+        </motion.button>
+        <motion.button
           className={`py-2 px-6 text-lg font-semibold focus:outline-none transition border-b-2 ${tab === 'dashboard' ? 'border-[#FFD700] text-[#0a174e]' : 'border-transparent text-gray-500 hover:text-[#0a174e]'}`}
           onClick={() => setTab('dashboard')}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           Dashboard
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
       {tab === 'courses' && <CourseCatalog />}
       {tab === 'programs' && <OponMetaPrograms />}
       {tab === 'dashboard' && <Dashboard />}

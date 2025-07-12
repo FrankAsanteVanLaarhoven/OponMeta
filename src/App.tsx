@@ -27,6 +27,9 @@ import BrandBanner from './components/BrandBanner';
 import Press from './components/Press';
 import Events from './components/Events';
 import LearningTiers from './components/LearningTiers';
+import TrustedByCarousel from './components/TrustedByCarousel';
+import FloatingAdBanner from './components/FloatingAdBanner';
+import PostPricingCTA from './components/PostPricingCTA';
 
 const Placeholder = ({ title }: { title: string }) => (
   <div className="max-w-4xl mx-auto py-20 px-4 text-center">
@@ -41,6 +44,7 @@ const HomePage = () => (
     <HeroSection />
     <WhatWeOffer />
     <FeaturedCourses />
+    <TrustedByCarousel />
     <div className="flex flex-col items-center my-8 space-y-4">
       <a
         href="/programme"
@@ -57,6 +61,7 @@ const HomePage = () => (
     </div>
     <Testimonials />
     <Pricing />
+    <PostPricingCTA />
     {/* Navigation Tabs */}
     <div className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,6 +82,7 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
+        <FloatingAdBanner />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<HomePage />} />

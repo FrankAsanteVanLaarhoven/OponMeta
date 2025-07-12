@@ -13,9 +13,9 @@ const Certificate = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#0a174e] to-[#1a2a6b] p-8">
       <div className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400 max-w-2xl w-full p-10 relative">
         <div className="flex justify-between items-center mb-8">
-          <img src="/logo.png" alt="OponMeta Logo" className="h-20 w-20" />
+          <img src="/logo.png" alt="OponMeta Logo" className="h-20 w-20 drop-shadow-lg border-4 border-yellow-400 rounded-full bg-white p-2" />
           <div className="text-right">
-            <h2 className="text-3xl font-bold text-[#0a174e]">Certificate of Completion</h2>
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent drop-shadow">Certificate of Completion</h2>
             <p className="text-lg text-gray-700 mt-2">This certifies that</p>
           </div>
         </div>
@@ -34,8 +34,9 @@ const Certificate = () => {
             <span className="text-xs text-gray-500 mt-1">OponMeta Seal</span>
           </div>
         </div>
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
           <span className="text-sm text-gray-400">Powered by OponMeta</span>
+          <span className="text-xs text-yellow-600 font-semibold mt-1">Empowering Global Education Excellence</span>
         </div>
       </div>
     </div>

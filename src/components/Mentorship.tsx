@@ -1,4 +1,29 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const headingVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { type: 'tween', duration: 0.7 } },
+};
+
+const cardVariants = {
+  offscreen: { opacity: 0, y: 60 },
+  onscreen: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.8 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const tabVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.6 } },
+};
 
 const Mentorship = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -62,16 +87,32 @@ const Mentorship = () => {
   return (
     <div className="bg-[#f6f9fc] min-h-screen py-12 px-4">
       {/* Hero Section */}
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold text-[#0a174e] mb-4">Unlock Your Potential with OponMeta Mentorship</h1>
-        <p className="text-lg text-gray-700 mb-6">Connect with experienced professionals and industry leaders who are passionate about helping you grow. Our mentorship program is designed for students, early-career professionals, and anyone looking to pivot or advance.</p>
-      </div>
+      <motion.div
+        className="max-w-3xl mx-auto text-center mb-12"
+        variants={headingVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
+        <motion.h1 className="text-4xl font-bold text-[#0a174e] mb-4" variants={headingVariants}>
+          Unlock Your Potential with OponMeta Mentorship
+        </motion.h1>
+        <motion.p className="text-lg text-gray-700 mb-6" variants={headingVariants}>
+          Connect with experienced professionals and industry leaders who are passionate about helping you grow. Our mentorship program is designed for students, early-career professionals, and anyone looking to pivot or advance.
+        </motion.p>
+      </motion.div>
 
       {/* Navigation Tabs */}
-      <div className="max-w-5xl mx-auto mb-8">
+      <motion.div
+        className="max-w-5xl mx-auto mb-8"
+        variants={tabVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.7 }}
+      >
         <div className="flex flex-wrap justify-center gap-2">
           {tabs.map(tab => (
-            <button
+            <motion.button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
@@ -79,36 +120,52 @@ const Mentorship = () => {
                   ? 'bg-[#0a174e] text-white shadow-lg' 
                   : 'bg-white text-[#0a174e] hover:bg-gray-50'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {tab.label}
-            </button>
+            </motion.button>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Tab Content */}
       <div className="max-w-5xl mx-auto">
         {activeTab === 'overview' && (
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white rounded-lg shadow p-6">
+          <motion.div
+            className="grid md:grid-cols-3 gap-8 mb-16"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div className="bg-white rounded-lg shadow p-6" variants={cardVariants}>
               <h3 className="text-xl font-semibold text-[#0a174e] mb-2">Personalized Guidance</h3>
               <p className="text-gray-600">1:1 and group mentorship sessions tailored to your goals and interests.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
+            </motion.div>
+            <motion.div className="bg-white rounded-lg shadow p-6" variants={cardVariants}>
               <h3 className="text-xl font-semibold text-[#0a174e] mb-2">Career Planning</h3>
               <p className="text-gray-600">Get help with career planning, resume building, and interview preparation.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
+            </motion.div>
+            <motion.div className="bg-white rounded-lg shadow p-6" variants={cardVariants}>
               <h3 className="text-xl font-semibold text-[#0a174e] mb-2">Networking</h3>
               <p className="text-gray-600">Access exclusive events and connect with a global network of mentors and peers.</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
 
         {activeTab === 'find-mentor' && (
           <div className="space-y-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-2xl font-bold text-[#0a174e] mb-4">Find Your Perfect Mentor</h2>
+            <motion.div
+              className="bg-white rounded-lg shadow p-6"
+              variants={cardVariants}
+              initial="offscreen"
+              whileInView="onscreen"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <motion.h2 className="text-2xl font-bold text-[#0a174e] mb-4" variants={headingVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.7 }}>
+                Find Your Perfect Mentor
+              </motion.h2>
               <div className="grid md:grid-cols-3 gap-4 mb-6">
                 <select className="border border-gray-300 rounded-md px-3 py-2">
                   <option>All Expertise</option>
@@ -128,11 +185,21 @@ const Mentorship = () => {
                   <option>$150+/hr</option>
                 </select>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {mentors.map(mentor => (
-                <div key={mentor.id} className="bg-white rounded-lg shadow p-6">
+                <motion.div
+                  key={mentor.id}
+                  className="bg-white rounded-lg shadow p-6"
+                  variants={cardVariants}
+                >
                   <div className="flex items-center mb-4">
                     <img src={mentor.image} alt={mentor.name} className="w-16 h-16 rounded-full mr-4" />
                     <div>
@@ -172,9 +239,9 @@ const Mentorship = () => {
                       View Profile
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
 

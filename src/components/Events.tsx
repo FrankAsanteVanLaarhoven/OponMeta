@@ -1,4 +1,29 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const headingVariants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { type: 'tween', duration: 0.7 } },
+};
+
+const cardVariants = {
+  offscreen: { opacity: 0, y: 60 },
+  onscreen: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.8 } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const tabVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.2, duration: 0.6 } },
+};
 
 const Events = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
@@ -111,17 +136,31 @@ const Events = () => {
     <div className="bg-[#f6f9fc] min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-[#0a174e] mb-4">Events & Conferences</h1>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+        <motion.div
+          className="text-center mb-12"
+          variants={headingVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.7 }}
+        >
+          <motion.h1 className="text-4xl font-bold text-[#0a174e] mb-4" variants={headingVariants}>
+            Events & Conferences
+          </motion.h1>
+          <motion.p className="text-lg text-gray-700 max-w-3xl mx-auto" variants={headingVariants}>
             Join us for inspiring events, workshops, and conferences designed to connect, educate, and empower our community.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <motion.div
+          className="flex flex-wrap justify-center gap-2 mb-8"
+          variants={tabVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.7 }}
+        >
           {tabs.map(tab => (
-            <button
+            <motion.button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
@@ -129,14 +168,22 @@ const Events = () => {
                   ? 'bg-[#0a174e] text-white shadow-lg' 
                   : 'bg-white text-[#0a174e] hover:bg-gray-50'
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {tab.label}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
+        <motion.div
+          className="bg-white rounded-lg shadow p-6 mb-8"
+          variants={cardVariants}
+          initial="offscreen"
+          whileInView="onscreen"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           <div className="grid md:grid-cols-3 gap-4">
             <select className="border border-gray-300 rounded-md px-3 py-2">
               {categories.map(category => (
@@ -152,13 +199,23 @@ const Events = () => {
               Filter Events
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Events Grid */}
         {activeTab !== 'calendar' && (
-          <div className="grid md:grid-cols-2 gap-8">
+          <motion.div
+            className="grid md:grid-cols-2 gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {filteredEvents.map(event => (
-              <div key={event.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <motion.div
+                key={event.id}
+                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                variants={cardVariants}
+              >
                 <img src={event.image} alt={event.title} className="w-full h-48 object-cover" />
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-3">
@@ -204,14 +261,14 @@ const Events = () => {
                           }}
                           className="px-4 py-2 bg-[#0a174e] text-white rounded-md font-semibold hover:bg-[#11235a] transition"
                         >
-                          Register
+                          Register Now
                         </button>
                       ) : (
                         <a
                           href={event.recordingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-4 py-2 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition"
+                          className="px-4 py-2 bg-[#FFD700] text-[#0a174e] rounded-md font-semibold hover:bg-yellow-300 transition"
                         >
                           Watch Recording
                         </a>
@@ -222,9 +279,9 @@ const Events = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
 
         {/* Calendar View */}
